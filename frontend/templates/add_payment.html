@@ -1,0 +1,84 @@
+{% extends 'base1.html' %}
+{% block content %}
+
+<style>
+    .payment-form {
+        max-width: 500px;
+        margin: 50px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-left: 5px solid #2E7D32;
+    }
+    .payment-form h3 {
+        color: #2E7D32;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .btn-success {
+        background-color: #2E7D32;
+        border-color: #2E7D32;
+    }
+    .btn-success:hover {
+        background-color: #1B5E20;
+        border-color: #1B5E20;
+    }
+    .alert-success {
+        background-color: #C8E6C9;
+        color: #1B5E20;
+        border-radius: 8px;
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+
+<div class="payment-form">
+
+    <h3>Add Payment – {{ member.name }}</h3>
+
+   {% if success %}
+    <div class="alert-success">
+        Payment added successfully!
+    </div>
+
+    {% if whatsapp_url %}
+        <div class="text-center mt-2">
+            <a href="{{ whatsapp_url }}" target="_blank" class="btn btn-success">
+                📩 Send WhatsApp Message
+            </a>
+        </div>
+    {% endif %}
+{% endif %}
+
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount (₹)</label>
+            <input type="number" step="1" min="0" name="amount" id="amount" class="form-control" placeholder="Enter amount" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="reason" class="form-label">Reason</label>
+            <input type="text" name="reason" id="reason" class="form-control" placeholder="Enter reason" required>
+        </div>
+
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-success">💾 Add Payment</button>
+        </div>
+    </form>
+
+    <div class="mt-3 text-center">
+        <a href="{% url 'view_payments' member.id %}" class="btn btn-secondary">⬅ Back to Payment History</a>
+    </div>
+    {% if whatsapp_url %}
+
+</div>
+
+
+{% endif %}
+{% endblock %}

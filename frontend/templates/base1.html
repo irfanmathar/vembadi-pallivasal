@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        <style>
+            .container {
+                background-color: #f9f9f9;
+                padding: 20px;
+                border-radius: 10px;
+                margin-down:30px;
+            }
+            .card {
+                background-color: #ffffff;
+                border-radius: 10px;
+            }
+            .form-control {
+                border-radius: 5px;
+            }
+            .btn-primary {
+                background-color: #007bff;
+                border-color: #007bff;
+                margin-left:150px;
+                margin-right:150px;
+            }
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+                
+            }
+            body {
+    padding-top: 70px;   /* Adjust if your navbar is bigger */
+}
+        </style>
+        
+    </style>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

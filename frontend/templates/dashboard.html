@@ -1,0 +1,608 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+
+    body {
+        background: #f0fff4;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Hero Section */
+    .hero {
+        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("{% static 'assests/images/masjid.webp' %}");
+        background-size: cover;
+        background-position: center;
+        height: 360px;
+        border-radius: 0 0 25px 25px;
+        color: white;
+        text-align: center;
+        padding-top: 120px;
+        animation: fadeIn 1.5s ease;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+        font-weight: bold;
+        animation: slideDown 1.3s ease-out;
+    }
+
+    .hero p {
+        font-size: 18px;
+        animation: fadeIn 2s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+        0% { transform: translateY(-40px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Section Cards */
+    .section {
+        background: white;
+        padding: 25px;
+        margin: 25px auto;
+        border-radius: 15px;
+        max-width: 900px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        animation: fadeIn 1.3s ease;
+    }
+
+    .section h2 {
+        color: #0d6a21;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    /* Donation Box */
+    .donate-box {
+        text-align: center;
+    }
+
+    .donate-img {
+        width: 250px;
+        height: 250px;
+        border-radius: 10px;
+        border: 3px solid #0d6a21;
+    }
+
+    .donate-btn {
+        background: linear-gradient(to right, #097218, #0da63a);
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        margin-top: 15px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .donate-btn:hover {
+        transform: scale(1.06);
+        background: #0a5d1f;
+    }
+
+    /* Committee */
+    .committee-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    .member-card {
+        background: #f7fff8;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .member-card img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 3px solid #0d6a21;
+        object-fit: cover;
+    }
+
+    .member-card h5 {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #0b5f1d;
+    }
+
+    .member-card p {
+        margin: 0;
+        color: #444;
+    }
+     .prayer-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .prayer-table th, .prayer-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #c6e8d0;
+            font-size: 16px;
+        }
+
+        .prayer-table th {
+            background: #0b5f1d;
+            color: white;
+        }
+
+        .prayer-table tr:hover {
+            background: #eefaf0;
+            transition: .3s;
+        }
+        .footer {
+        background: #0a4f1a;
+        color: white;
+        padding: 20px;
+        margin-top: 40px;
+        border-radius: 18px 18px 0 0;
+    }
+    .footer a { color: #90ffb3; } .popup-bg {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6);
+        justify-content: center;
+        align-items: center;
+    }
+    .popup-box {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        width: 320px;
+        text-align: center;
+        animation: pop 0.4s ease;
+    }
+    @keyframes pop {
+        from { transform: scale(0.7); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+    .close-btn {
+        background: red; padding: 8px 14px; color: white; border: none; border-radius: 6px;
+    }
+    .add-btn {
+    background: #028a0f;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    float: right;
+}
+
+
+/* First member – centered full width */
+.big-card {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto 25px auto;
+}
+
+/* Always keep 2 in a row (even in mobile) */
+.committee-grid-two {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* Shared member card style */
+.member-card {
+    width: 100%;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.member-card img {
+    width: 130px;
+    height: 130px;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: top;
+}
+
+/* Horizontal scroll for remaining members */
+.scroll-row {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 10px;
+}
+
+.scroll-row::-webkit-scrollbar {
+    height: 8px;
+}
+.scroll-row::-webkit-scrollbar-thumb {
+    background: #2E7D32;
+    border-radius: 10px;
+}
+
+/* Buttons */
+.action-btns a {
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    margin: 5px;
+}
+
+.edit-btn { background: #0066ff; }
+.delete-btn { background: #cc0000; }
+
+
+.notice-box {
+    background: #ffdddd;
+    border-left: 6px solid red;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 900px;
+}
+
+.notice-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    color: #b30000;
+    font-weight: bold;
+    padding: 6px 0;
+}
+
+.notice-del-btn {
+    background: red;
+    color: white;
+    padding: 4px 10px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+.add-notice-btn {
+    background: #d32f2f;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.add-notice-btn:hover {
+    background: #b71c1c;
+}
+.event-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.event-carousel::-webkit-scrollbar {
+    height: 8px;
+}
+
+.event-carousel::-webkit-scrollbar-thumb {
+    background: #2E7D32;
+    border-radius: 10px;
+}
+
+.event-card {
+    flex: 0 0 80%; /* Center card width */
+    scroll-snap-align: center;
+    background: #f7fff8;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.3s;
+    position: relative;
+}
+
+.event-card:hover {
+    transform: scale(1.03);
+}
+
+.event-photo {
+    width: 100%;
+    height: 300px;
+    object-fit: content;
+    object-position:top;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.event-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #0d6a21;
+    margin-bottom: 5px;
+}
+
+.event-date {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.action-btns {
+    margin-top: 10px;
+}
+
+.action-btns a {
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    margin: 5px;
+}
+
+.edit-btn { background: #0066ff; }
+.delete-btn { background: #cc0000; }
+
+/* Small screens – show 90% width cards */
+@media (max-width: 768px) {
+    .event-card {
+        flex: 0 0 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .event-card {
+        flex: 0 0 95%;
+    }
+}
+
+
+
+</style>
+
+
+<!-- HERO -->
+<div class="hero">
+    <h1>வேம்பாடி பள்ளிவாசல் ஜமாத்</h1>
+    <p>Welcome to our Masjid Community • Islamic Services • Charity • Unity</p>
+</div>
+<div class="section container">
+
+    <!-- Title Left + Button Right -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="m-0">Notice Board</h2>
+
+        {% if request.user.is_superuser == 1 %}
+        <a href="{% url 'add_notice' %}" class="add-notice-btn btn btn-success">
+            + Add Notice
+        </a>
+        {% endif %}
+    </div>
+
+
+{% if notices %}
+<div class="notice-box container">
+    {% for n in notices %}
+        <div class="notice-item">
+            🔴 <b>{{ n.message }}</b>
+
+           {% if request.user.is_superuser == 1 %}<a href="{% url 'delete_notice' n.id %}" class="notice-del-btn">×</a>{% endif %}
+        </div>
+    {% endfor %}
+
+</div>
+{% endif %}
+
+</div>
+<div class="section container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="m-0">Events</h2>
+        {% if request.user.is_superuser == 1 %}
+        <a href="{% url 'add_event' %}" class="btn btn-success">+ Add Event</a>
+        {% endif %}
+    </div>
+
+    <div class="event-carousel">
+        {% for e in events %}
+        <div class="event-card">
+            <img src="{{ e.photo.url }}" class="event-photo">
+            <h5 class="event-name">{{ e.name }}</h5>
+            <p class="event-date">{{ e.date }}</p>
+
+            <div class="action-btns">
+                {% if request.user.is_superuser == 1 %}
+                <a href="{% url 'edit_event' e.id %}" class="edit-btn">Edit</a>
+                <a href="{% url 'delete_event' e.id %}" class="delete-btn">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<!-- ABOUT MASJID -->
+<div class="section">
+    <h2>About the Masjid</h2>
+    <p>
+        வேம்பாடி பள்ளிவாசல் ஜமாத் மக்கள் நலனுக்காக, மதத்தையும் சமூக பணிகளையும் முன்னெடுத்து வருகின்றது. 
+        தினசரி தொழுகைகள், இஸ்லாமிய கல்வி, நற்கருணை செயல்கள் ஆகியவற்றை வளர்த்தெடுத்து வருகிறது.
+    </p>
+</div>
+<div class="section">
+    <h2>Prayer Timings (நேரங்கள்)</h2>
+<table class="prayer-table">
+        <tr>
+            <th>Prayer</th>
+            <th>Time</th>
+            <th>Tamil</th>
+        </tr>
+        <tr>
+            <td>Fajr</td>
+            <td>5:30 AM</td>
+            <td>பஜர்</td>
+        </tr>
+        <tr>
+            <td>Dhuhr</td>
+            <td>1:00 PM</td>
+            <td>துஹ்ர்</td>
+        </tr>
+        <tr>
+            <td>Asr</td>
+            <td>4:30 PM</td>
+            <td>அஸர்</td>
+        </tr>
+        <tr>
+            <td>Maghrib</td>
+            <td>6:10 PM</td>
+            <td>மஃரிப்</td>
+        </tr>
+        <tr>
+            <td>Isha</td>
+            <td>7:30 PM</td>
+            <td>ஈஷா</td>
+        </tr>
+        <tr style="background: #dbffe0; font-weight: bold;">
+            <td>Jummah</td>
+            <td>1:45 PM</td>
+            <td>ஜும்மா</td>
+        </tr>
+    </table>
+</div>
+<!-- CONSTRUCTION UPDATE -->
+<div class="section">
+    <h2>Ongoing Construction / Masjid Work</h2>
+    <p>
+        எங்கள் பள்ளிவாசலில் தற்போது கட்டுமான / பழுது பார்க்கும் வேலைகள் நடைபெற்று வருகின்றன. 
+        தங்கள் நற்செல் ஆதரவை எதிர்பார்த்துக்கொள்கிறோம்.
+    </p>
+    <button class="donate-btn" onclick="openDonate()">Donate Online</button>
+</div>
+
+<!-- DONATION SECTION -->
+<div id="donatePopup" class="popup-bg">
+    <div class="popup-box">
+        <h3>Donate to Masjid</h3>
+        <img src="{% static 'assests/images/seals.webp' %}" width="220">
+        <br><br>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+</div>
+
+<script>
+function openDonate() {
+    document.getElementById('donatePopup').style.display = 'flex';
+}
+function closePopup() {
+    document.getElementById('donatePopup').style.display = 'none';
+}
+</script>
+
+<div class="section container">
+
+    <!-- TITLE + BUTTON -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="m-0">Committee Members</h2>
+        {% if request.user.is_superuser == 1 %}
+        <a href="{% url 'add_member' %}" class="btn btn-success">+ Add Member</a>
+        {% endif %}
+    </div>
+
+    <!-- FIRST MEMBER - FULL WIDTH -->
+    <div>
+        {% for m in committee|slice:":1" %}
+        <div class="member-card big-card">
+            <h4><b>{{ m.role }}</b></h4>
+            <img src="{{ m.photo.url }}">
+            <h5>{{ m.name }}</h5>
+            <p>{{ m.phone_number }}</p>
+            <p>{{ m.family_name }}</p>
+            <p>Since: {{ m.posting_start_date }}</p>
+
+            <div class="action-btns">
+                {% if request.user.is_superuser == 1 %}
+                <a href="{% url 'edit_member' m.id %}" class="edit-btn">Edit</a>
+                <a href="{% url 'delete_member' m.id %}" class="delete-btn">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- NEXT TWO MEMBERS (ALWAYS SIDE BY SIDE) -->
+    <div class="committee-grid-two">
+        {% for m in committee|slice:"1:3" %}
+        <div class="member-card">
+            <h4><b>{{ m.role }}</b></h4>
+            <img src="{{ m.photo.url }}">
+            <h5>{{ m.name }}</h5>
+            <p>{{ m.phone_number }}</p>
+            <p>{{ m.family_name }}</p>
+            <p>Since: {{ m.posting_start_date }}</p>
+
+            <div class="action-btns">
+                {% if request.user.is_superuser == 1 %}
+                <a href="{% url 'edit_member' m.id %}" class="edit-btn">Edit</a>
+                <a href="{% url 'delete_member' m.id %}" class="delete-btn">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <!-- REMAINING MEMBERS — HORIZONTAL SCROLL -->
+    <div class="scroll-row">
+        {% for m in committee|slice:"3:" %}
+        <div class="member-card">
+            <h4><b>{{ m.role }}</b></h4>
+            <img src="{{ m.photo.url }}">
+            <h5>{{ m.name }}</h5>
+            <p>{{ m.phone_number }}</p>
+            <p>{{ m.family_name }}</p>
+            <p>Since: {{ m.posting_start_date }}</p>
+
+            <div class="action-btns">
+                {% if request.user.is_superuser == 1 %}
+                <a href="{% url 'edit_member' m.id %}" class="edit-btn">Edit</a>
+                <a href="{% url 'delete_member' m.id %}" class="delete-btn">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+<div class="footer">
+    <h3>வேம்பாடி பள்ளிவாசல் ஜமாத்</h3>
+    <p>Address:86/22K, SKP St, Tenkasi, Tamil Nadu 627811, India
+</p>
+    <p>Contact: +91 6379665974</p>
+
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3941.1743365253883!2d77.31663887479286!3d8.956078091102388!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0429c50afbdb07%3A0x4467bf3064b76ef6!2sVembadi%20Mosque!5e0!3m2!1sen!2sin!4v1765454745872!5m2!1sen!2sin"
+      width="50%" height="200" 
+        style="border:0; border-radius:12px;" allowfullscreen=""></iframe>
+
+    <p style="margin-top:10px; text-align:center;">© 2025 Masjid Website. All rights reserved.</p>
+</div>
+
+{% endblock %}

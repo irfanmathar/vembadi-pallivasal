@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<style>
+body {
+    font-family: "Latha", sans-serif;
+    font-size: 11px;
+    margin: 0;
+    padding: 20px;
+}
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #065f3c;
+    color: white;
+    padding: 10px;
+}
+.header img {
+    width: 60px;
+    height: 60px;
+}
+.header h2 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+}
+hr {
+    border: 1px solid green;
+    width: 50%;
+    margin: 5px auto 15px;
+}
+.member-info {
+    margin-top: 10px;
+    line-height: 1.5;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+th, td {
+    border: 1px solid grey;
+    padding: 4px;
+    font-size: 10px;
+    word-wrap: break-word;
+}
+th {
+    background-color: green;
+    color: white;
+}
+.footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.signature {
+    text-align: center;
+}
+.signature img {
+    width: 100px;
+}
+.signature span {
+    display: block;
+    font-size: 7px;
+}
+.seal img {
+    width: 80px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    {% if logo_url%}
+    <img src="{{ logo_url }}">
+    {% endif %}
+    <h2>வேம்படி பள்ளிவாசல் ஜமாஅத்</h2>
+</div>
+
+<hr>
+
+<div class="member-info">
+    <b>பெயர்:</b> {{ member.name }}<br>
+    <b>தந்தை பெயர்:</b> {{ member.father_name }}<br>
+    <b>குடும்பம்:</b> {{ member.family_name }}<br>
+    <b>கைபேசி:</b> {{ member.phone_number }}<br>
+    {% if selected_date %}
+        <b>தேதி:</b> {{ selected_date }}<br>
+    {% endif %}
+    {% if bill_id %}
+        <b>பில் எண்:</b> {{ bill_id }}<br>
+    {% endif %}
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>பில் எண்:</th>
+            <th>தேதி</th>
+            <th>நேரம்</th>
+            <th>தொகை (₹)</th>
+            <th>காரணம்</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pay in payments %}
+        <tr>
+            <td>{{ pay.id }}</td>
+            <td>{{ pay.date }}</td>
+            <td>{{ pay.time }}</td>
+            <td>₹{{ pay.amount }}</td>
+            <td>{{ pay.reason }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p><b>மொத்த செலுத்திய தொகை: ₹{{ total_amount }}</b></p>
+
+<div class="footer">
+    <div class="seal">
+        {% if seal_url %}
+        <img src="{{ seal_url }}">
+        {% endif %}
+    </div>
+    <div class="signature">
+        {% if sign_url %}
+        <img src="{{ sign_url }}">
+        <span>Leader Signature</span>
+        {% endif %}
+    </div>
+</div>
+
+<p style="text-align:center; font-size:9px; margin-top:20px;">
+இந்த ரசீது கணினி மூலம் தயாரிக்கப்பட்டது – வேம்படி பள்ளிவாசல் ஜமாஅத்
+</p>
+
+</body>
+</html>

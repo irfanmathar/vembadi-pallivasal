@@ -1,0 +1,303 @@
+{% extends 'base1.html' %}
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #E3F2FD, #FCE4EC);
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .search-box {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+    }
+
+    .search-title {
+        font-size: 22px;
+        font-weight: bold;
+        color: #2E7D32;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .family-card {
+        background-color: #FFFFFF;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+        transition: .3s;
+        height: 100%;
+        border: 1px solid #E8F5E9;
+    }
+
+    .family-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .photo-frame {
+        width: 50%;
+        height: 180px;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 12px;
+        border: 3px solid #C8E6C9;
+        margin-bottom: 15px;
+        margin-left:20%;
+    }
+
+    .title {
+        font-size: 22px;
+        font-weight: bold;
+        color: #1B5E20;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    .detail {
+        margin: 4px 0;
+        color: #424242;
+        font-size: 15px;
+    }
+ .btn-download {
+    background-color: #4CAF50;
+    color: white;
+    padding: 4px 12px;
+    font-size: 13px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.btn{
+    background-color: #2f35d6ff;
+    color: white;
+    padding: 4px 12px;
+    font-size: 13px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.btn:hover {
+    background-color: #3714d0ff;
+    color: white;
+}
+.btn-download:hover {
+    background-color: #45A049;
+    color: white;
+}
+.btn1{
+    background-color: #40b6c6ff;
+    color: white;
+    padding: 4px 12px;
+    font-size: 13px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.btn1:hover {
+    background-color: #2aa8adff;
+    color: white;
+}
+.btn2{
+    background-color: #8daa36ff;
+    padding: 4px 12px;
+    font-size: 13px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.btn2:hover {
+    background-color: #8daa36ff;
+    color: white;
+}
+.button {
+    display: flex;              /* Keeps items in the same row */
+    gap: 5px;                   /* Space between buttons */
+    align-items: center;
+    margin-left:5%;        /* Perfect vertical alignment */
+}
+.member-count-box {
+    background: #E8F5E9;
+    padding: 12px 25px;
+    border-radius: 12px;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-left: 6px solid #2E7D32;
+    font-size: 18px;
+    margin-left: 40%;
+}
+
+.member-count-label {
+    font-weight: bold;
+    color: #1B5E20;
+}
+
+.member-count-number {
+    font-weight: bold;
+    color: #2E7D32;
+    font-size: 20px;
+}
+/* Button Group */
+.button-group .btn {
+    font-size: 16px;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+/* Search Button */
+.btn-search {
+    background-color: #2E7D32; /* Green */
+    color: #fff;
+    border: none;
+}
+.btn-search:hover {
+    background-color: #1B5E20; /* Darker Green */
+}
+
+/* Clear Button */
+.btn-clear {
+    background-color: #8d8989ff; /* Red */
+    color: #fff;
+    border: none;
+}
+.btn-clear:hover {
+    background-color: #757474ff; /* Darker Red */
+}
+
+
+</style>
+
+<div class="container mt-4 ">
+
+<div class="search-box">
+    <h4 class="search-title">Search Members</h4>
+
+    <form method="GET">
+        <div class="row g-3">
+
+            <div class="col-md-4">
+                <input type="text" name="name" class="form-control form-control-lg"
+                       placeholder="Search by Name"
+                       value="{{ request.GET.name }}">
+            </div>
+
+            <div class="col-md-4">
+                <input type="text" name="father" class="form-control form-control-lg"
+                       placeholder="Search by Father Name"
+                       value="{{ request.GET.father }}">
+            </div>
+
+            <div class="col-md-4">
+                <input type="text" name="family" class="form-control form-control-lg"
+                       placeholder="Search by Family Name"
+                       value="{{ request.GET.family }}">
+            </div>
+
+            <div class="col-12 text-center mt-3 button-group">
+    <button type="submit" class="btn btn-search">
+        🔍 Search
+    </button>
+    <a href="?" class="btn btn-clear">
+        ❌ Clear
+    </a>
+</div>
+
+        </div>
+    </form>
+</div>
+<div class="member-count-box text-center mb-4">
+    <span class="member-count-label">Total Members:</span>
+    <span class="member-count-number">{{ total }}</span>
+</div>
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+    <!-- MEMBER CARDS -->
+    <div class="row">
+        
+
+        {% for member in allmember %}
+        <div class="col-lg-4 col-md-6 col-12">
+            <div class="family-card">
+
+                <img src="{{ member.photo.url }}" class="photo-frame">
+
+                <h4 class="title">{{ member.name }}</h4>
+
+                <p class="detail"><b>Father:</b> {{ member.father_name }}</p>
+                <p class="detail"><b>Family:</b> {{ member.family_name }}</p>
+                <p class="detail"><b>phone number:</b> {{ member.phone_number }}</p>
+                <p class="detail"><b>Serial No:</b> {{ member.serial_no }}</p>
+                <p class="detail"><b>Book No:</b> {{ member.book_number }}</p>
+                <p class="detail"><b>Year:</b> {{ member.year }}</p>
+                <p class="detail"><b>Address:</b> {{ member.address }}</p><br>
+                <p class="detail"><b>Last Payment Date:</b>
+    {% if member.last_date %}
+        {{ member.last_date }}
+    {% else %}
+        No Payments
+    {% endif %}
+</p>
+
+<p class="detail"><b>Last Amount:</b>
+    {% if member.last_amount %}
+        ₹{{ member.last_amount }}
+    {% else %}
+        -
+    {% endif %}
+</p>
+
+         <div class="button">
+    {% if request.user.is_superuser == 1 %}<a href="{% url 'update_member' member.id %}" 
+       class="btn"
+       style="padding: 3px 10px; font-size: 13px; border-radius: 5px;">
+        Update member
+    </a>{% endif %}
+
+    <a href="{% url 'download_member' member.id %}" 
+       class="btn-download">
+        ⬇ IDcard Download
+    </a>
+    {% if request.user.is_superuser == 1 %}
+    <a href="{% url 'add_payment' member.id %}" class="btn1"
+   style="padding: 3px 10px; font-size: 13px; border-radius: 5px; color:white;">
+    ➕ Add Payment
+</a>{% endif %}
+<a href="{% url 'view_payments' member.id %}" class="btn2"
+   style="padding: 3px 10px; font-size: 13px; border-radius: 5px; color:white;">
+    📄 View Payments
+</a>
+</div>
+
+
+
+
+            </div>
+        </div>
+        
+        {% endfor %}
+        
+
+    </div>
+
+</div>
+
+{% endblock %}

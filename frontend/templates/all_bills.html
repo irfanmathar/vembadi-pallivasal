@@ -1,0 +1,271 @@
+{% extends 'base1.html' %}
+{% block content %}
+<style>
+    body {
+        background: #f4f7fa;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 40px auto;
+    }
+
+    h3 {
+        color: #2E7D32;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    /* Total amount box */
+    .total-box {
+        background: #E8F5E9;
+        border-left: 6px solid #2E7D32;
+        padding: 15px 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #1B5E20;
+        text-align: center;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    /* Filter/Search form */
+    .row.g-3 input,
+    .row.g-3 button,
+    .row.g-3 a {
+        height: 45px;
+        font-size: 14px;
+    }
+
+    .table {
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .table thead {
+        background-color: #2E7D32;
+        color: #ffffff;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .table thead th {
+        border: none;
+        padding: 12px 8px;
+    }
+
+    .table tbody td {
+        text-align: center;
+        padding: 10px 8px;
+        border-top: 1px solid #e8e8e8;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background: #f9f9f9;
+    }
+
+    .table tbody tr:hover {
+        background: #e8f5e9;
+        transition: 0.3s;
+    }
+
+    /* Common button style */
+.filter-buttons .btn {
+    font-size: 16px;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Filter button (green) */
+.btn-filter {
+    background-color: #2E7D32; /* Green */
+    color: #fff;
+    border: none;
+}
+.btn-filter:hover {
+    background-color: #1B5E20; /* Darker Green */
+}
+
+/* Clear button (gray/red) */
+.btn-clear {
+    background-color: #9E9E9E; /* Gray */
+    color: #fff;
+    border: none;
+}
+.btn-clear:hover {
+    background-color: #616161; /* Darker Gray */
+}
+
+/* Optional: small shadow for hover effect */
+.btn-filter:hover, .btn-clear:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+
+    /* Filter form styling */
+    .filter-form {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        margin-bottom: 25px;
+    }
+
+    .filter-form .form-control {
+        height: 45px;
+        border-radius: 8px;
+        border: 1px solid #c8e6c9;
+        padding: 0 12px;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+
+    .filter-form .form-control:focus {
+        border-color: #2E7D32;
+        box-shadow: 0 0 5px rgba(46,125,50,0.3);
+        outline: none;
+    }
+
+    .filter-form .btn-success, .filter-form .btn-secondary {
+        font-weight: bold;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+    .member-count-box {
+    background: #E8F5E9;
+    padding: 12px 25px;
+    border-radius: 12px;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-left: 6px solid #2E7D32;
+    font-size: 18px;
+    margin-left: 40%;
+}
+
+.member-count-label {
+    font-weight: bold;
+    color: #1B5E20;
+}
+
+.member-count-number {
+    font-weight: bold;
+    color: #2E7D32;
+    font-size: 20px;
+}
+
+    @media (max-width: 768px) {
+        .table thead {
+            display: none;
+        }
+        .table tbody td {
+            display: block;
+            text-align: right;
+            position: relative;
+            padding-left: 50%;
+        }
+        .table tbody td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 15px;
+            width: 45%;
+            padding-left: 10px;
+            font-weight: bold;
+            text-align: left;
+        }
+        .filter-form .d-flex {
+            flex-direction: column !important;
+            gap: 10px !important;
+        }
+        .filter-form .w-50 {
+            width: 100% !important;
+        }
+    }
+</style>
+
+<div class="container">
+
+    <!-- Total Amount -->
+    
+    <!-- Filter/Search Form -->
+    <form method="GET" class="row g-3 filter-form align-items-end">
+        <h3>All Payments</h3>
+        <div class="col-md-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Search by Name" value="{{ search_name }}">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Father Name</label>
+            <input type="text" name="father" class="form-control" placeholder="Search by Father Name" value="{{ search_father }}">
+        </div>
+        <div class="col-md-3">
+    <label class="form-label">Start Date</label>
+    <input type="date" name="start_date" class="form-control" value="{{ start_date }}">
+</div>
+<div class="col-md-3">
+    <label class="form-label">End Date</label>
+    <input type="date" name="end_date" class="form-control" value="{{ end_date }}">
+</div>
+
+        <div class="col-12 d-flex justify-content-center gap-2 mt-3 filter-buttons">
+        <button type="submit" class="btn btn-filter">🔍 Filter</button>
+        <a href="{% url 'all_payments' %}" class="btn btn-clear">❌ Clear</a>
+
+        <!-- Download Button -->
+        <a href="{% url 'download_all_payments' %}?name={{ search_name }}&father={{ search_father }}&start_date={{ start_date }}&end_date={{ end_date }}" class="btn btn-success">
+            ⬇️ Download PDF
+        </a>
+    </div>
+    </form>
+<div class="member-count-box text-center mb-4">
+    <span class="member-count-label">Total Amount:</span>
+    <span class="member-count-number">{{ total }}</span>
+</div>
+    <!-- Payments Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Father Name</th>
+                    <th>Family Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Amount (₹)</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pay in payments %}
+                <tr>
+                    <td data-label="ID">{{ pay.id }}</td>
+                    <td data-label="Name">{{ pay.member.name }}</td>
+                    <td data-label="Father Name">{{ pay.member.father_name }}</td>
+                    <td data-label="Family Name">{{ pay.member.family_name }}</td>
+                    <td data-label="Date">{{ pay.local_date }}</td>
+                    <td data-label="Time">{{ pay.local_time }}</td>
+                    <td data-label="Amount (₹)">{{ pay.amount }}</td>
+                    <td data-label="Reason">{{ pay.reason }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center text-danger">No payments found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base1.html' %}
+{% block content %}
+
+<style>
+    .form-container {
+        max-width: 650px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-left: 8px solid #2E7D32;
+    }
+
+    h2 {
+        color: #2E7D32;
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: bold;
+    }
+
+    label {
+        font-weight: 600;
+        margin-top: 10px;
+        color: #1B5E20;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        box-shadow: none;
+        border: 1px solid #A5D6A7;
+    }
+
+    .form-control:focus {
+        border-color: #2E7D32;
+        box-shadow: 0 0 6px rgba(46,125,50,0.3);
+    }
+
+    .btn-success {
+        width: 40%;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 10px;
+        background: #2E7D32;
+        border: none;
+    }
+
+    .btn-success:hover {
+        background: #1B5E20;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Add Committee Member</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Name</label>
+        <input type="text" name="name" class="form-control" required>
+
+        <label>Family Name</label>
+        <input type="text" name="family_name" class="form-control" required>
+
+        <label>Phone Number</label>
+        <input type="text" name="phone_number" class="form-control" required placeholder="Enter phone number">
+
+        <label>Role</label>
+        <input type="text" name="role" class="form-control" required>
+
+        <label>Posting Start Date</label>
+        <input type="date" name="posting_start_date" class="form-control" required>
+
+        <label>Photo</label>
+        <input type="file" name="photo" class="form-control" required>
+
+        <br>
+        <button type="submit" class="btn btn-success">Save Member</button>
+    </form>
+</div>
+
+{% endblock %}

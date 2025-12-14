@@ -1,0 +1,135 @@
+{% extends 'base1.html' %}
+{% block content %}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #E3F2FD, #FCE4EC);
+        font-family: 'Arial', sans-serif;
+    }
+
+    .form-card {
+        max-width: 700px;
+        margin: 50px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        border-top: 6px solid #2E7D32;
+    }
+
+    .form-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #2E7D32;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #2E7D32;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 10px;
+        border: 1px solid #BDBDBD;
+    }
+
+    .form-control:focus {
+        border-color: #66BB6A;
+        box-shadow: 0 0 5px rgba(102,187,106,.5);
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    .photo-preview {
+        border-radius: 10px;
+        border: 3px solid #C8E6C9;
+        display: block;
+        margin-top: 10px;
+    }
+
+    
+</style>
+
+<div class="container">
+    <div class="form-card">
+
+        <h3 class="form-title">Members Details Form</h3>
+         {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label>Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Enter Name" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Father Name</label>
+                    <input type="text" name="fname" class="form-control" placeholder="Enter Father Name" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Family Name</label>
+                    <input type="text" name="fname2" class="form-control" placeholder="Enter Family Name" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Phone Number</label>
+                    <input type="text" name="phno" class="form-control" placeholder="Enter Phone Number" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Serial No</label>
+                    <input type="text" name="serial" class="form-control" placeholder="Enter Serial No" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Book No</label>
+                    <input type="text" name="book" class="form-control" placeholder="Enter Book No" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Year</label>
+                    <input type="text" name="year" class="form-control" placeholder="Enter Year" required>
+                </div>
+
+                <div class="col-md-12">
+                    <label>Address</label>
+                    <textarea class="form-control" name="address" rows="2" placeholder="Enter Address" required></textarea>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Upload Photo</label>
+                    <input type="file" name="photo" class="form-control" required>
+                </div>
+
+            </div>
+           
+
+            <button class="btn btn-success submit-btn" type="submit">Submit</button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

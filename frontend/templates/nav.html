@@ -1,0 +1,71 @@
+{% load static %}
+<style>
+    /* Navbar background green */
+    .navbar-custom {
+        background-color: #2E7D32; /* Green */
+    }
+
+    /* Navbar links default */
+    .navbar-custom .nav-link {
+        color: #fff;
+        transition: background 0.3s;
+        border-radius: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+   
+   .navbar-custom {
+    background-color: #2E7D32;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+.navbar-toggler {
+    border-color: white; /* white border */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+  </style>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container-fluid">
+        <!-- Brand Image and Name (Left Side) -->
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="{% static 'assests/images/masjid.webp' %}" width="30px" class="me-2">
+            <span style="color:white;">வேம்பாடி பள்ளிவாசல் ஜமாத்</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" aria-expanded="false" 
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Menu Items (Right Side) -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+        <a class="nav-link" href="/inventory/dash/">Dashboard</a>
+
+    </li>
+                {% if request.user.is_superuser == 1 %}<li class="nav-item">
+                    <a class="nav-link active home-link" aria-current="page" href="/inventory/home/">New Member</a>{% endif %}
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link person-link" aria-current="page" href="/inventory/allmember/">All Members</a>
+                </li>
+                <li class="nav-item">
+       {% if request.user.is_superuser == 1 %} <a class="nav-link" href="{% url 'all_payments' %}">All Payments</a>{% endif %}
+
+    </li>
+      
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout/">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

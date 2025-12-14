@@ -1,0 +1,111 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+/* Container card */
+.form-container {
+    max-width: 480px;
+    margin: 50px auto;
+    background: #f7fff8;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    text-align: center;
+    border-left: 6px solid #0d6a21;
+}
+
+/* Title */
+.form-container h2 {
+    color: #0d6a21;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+/* Current Photo */
+.current-photo {
+    display: block;
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 15px;
+    object-position: top;
+    border: 3px solid #0d6a21;
+    margin: 0 auto 25px auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Form inputs */
+label {
+    font-weight: 600;
+    color: #1B5E20;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+}
+
+.form-control {
+    border-radius: 12px;
+    border: 1px solid #a5d6a7;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    width: 100%;
+    font-size: 16px;
+}
+
+.form-control:focus {
+    border-color: #2E7D32;
+    box-shadow: 0 0 6px rgba(46,125,50,0.3);
+    outline: none;
+}
+
+/* Buttons */
+.btn-success {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 12px;
+    background: linear-gradient(to right, #097218, #0da63a);
+    border: none;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-success:hover {
+    transform: scale(1.05);
+    background: #0a5d1f;
+}
+
+/* Optional new photo label */
+.optional-label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+</style>
+
+<div class="form-container">
+    <h2>Edit Event</h2>
+
+    <!-- Current Event Photo -->
+    <img src="{{ event.photo.url }}" alt="Current Event Photo" class="current-photo">
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Event Name</label>
+        <input type="text" name="name" class="form-control" value="{{ event.name }}" required>
+
+        <label>Event Date</label>
+        <input type="date" name="date" class="form-control" value="{{ event.date }}" required>
+
+        <label class="optional-label">Change Photo (Optional)</label>
+        <input type="file" name="photo" class="form-control">
+
+        <button type="submit" class="btn btn-success">Update Event</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    /* Background Animation */
+    body {
+        background: linear-gradient(135deg, #99e0b2, #097218);
+        font-family: 'Arial', sans-serif;
+        animation: fadeIn 1.5s ease-in-out;
+        margin: 0;
+        padding: 0;
+    }
+
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    /* Logo Floating */
+    .logo {
+        width: 180px;
+        height: 180px;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0); }
+    }
+
+    /* Form Card Animation */
+    #form {
+        max-width: 400px;
+        margin: 60px auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        color: black;
+        animation: slideUp 0.9s ease-out;
+    }
+
+    @keyframes slideUp {
+        0% { transform: translateY(40px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+    }
+
+    label {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    /* Input Animated Borders */
+    .form-control {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 2px solid #c8e6c9;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #2e7d32;
+        box-shadow: 0px 0px 10px rgba(46, 125, 50, 0.5);
+        transform: scale(1.02);
+    }
+
+    /* Button */
+    .btn-primary {
+        width: 50%;
+        padding: 12px;
+        font-size: 16px;
+        background: linear-gradient(to right, #097218, #1b8e3e);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.4s ease;
+    }
+
+    .btn-primary:hover {
+        background: #0e5f21;
+        transform: scale(1.05);
+        box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Error Message */
+    .text_danger {
+        color: red;
+        font-size: 13px;
+        margin: -5px 0 10px 0;
+        font-weight: bold;
+    }
+
+    center {
+        display: block;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3"></div>
+
+        <div class="col-sm-6">
+            <form action="" method="POST" id="form">
+
+                <center>
+                    <img src="{% static 'assests/images/masjid.webp' %}" class="logo">
+                </center>
+
+                {% csrf_token %}
+                <p class="text_danger">{{ error }}</p>
+                <label>Full Name</label>
+                <input type="text" name="full_name" class="form-control" placeholder="Full Name" required>
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Enter a Username" required>
+
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Enter your Email" required>
+                
+                <label>Phone Number</label>
+<input type="text" name="phone_number" class="form-control" placeholder="Enter your Phone Number" required>
+
+
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Enter a Password" required>
+
+                <center>
+                    <input type="submit" class="btn btn-primary" value="Sign Up"><br><br>
+                    <a href="/" class="text-success">Already Have a account, please click</a>
+                </center>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

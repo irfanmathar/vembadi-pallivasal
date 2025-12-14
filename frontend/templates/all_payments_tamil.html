@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<style>
+body {
+    font-family: "Latha", sans-serif;
+    font-size: 11px;
+    margin: 0;
+    padding: 20px;
+}
+.header {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+.header h1 {
+    margin: 0;
+    color: #065f3c;
+}
+.header h2 {
+    margin: 5px 0;
+    color: #065f3c;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    word-wrap: break-word;
+}
+th, td {
+    border: 1px solid grey;
+    padding: 4px;
+    font-size: 10px;
+    text-align: center;
+}
+th {
+    background-color: green;
+    color: white;
+}
+.total {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: right;
+}
+.footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.footer img {
+    display: block;
+}
+.footer .seal img {
+    width: 80px;
+}
+.footer .signature img {
+    width: 100px;
+}
+.footer .signature span {
+    display: block;
+    font-size: 7px;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    {% if logo_url %}
+    <img src="{{ logo_url }}">
+    {% endif %}
+    <div>
+        <h1>வேம்படி பள்ளிவாசல் ஜமாஅத்</h1>
+        <h2>அனைத்து கட்டணங்கள் – அறிக்கை</h2>
+        {% if start_date and end_date %}
+        <p>தேதி வரம்பு: {{ start_date }} – {{ end_date }}</p>
+        {% elif start_date %}
+        <p>தேதி: {{ start_date }}</p>
+        {% endif %}
+        {% if search_name %}
+        <p>பெயர்: {{ search_name }}</p>
+        {% endif %}
+        {% if search_father %}
+        <p>தந்தை பெயர்: {{ search_father }}</p>
+        {% endif %}
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>பெயர்</th>
+            <th>தந்தை பெயர்</th>
+            <th>தேதி</th>
+            <th>நேரம்</th>
+            <th>தொகை (₹)</th>
+            <th>காரணம்</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pay in payments %}
+        <tr>
+            <td>{{ pay.id }}</td>
+            <td>{{ pay.name }}</td>
+            <td>{{ pay.father }}</td>
+            <td>{{ pay.date }}</td>
+            <td>{{ pay.time }}</td>
+            <td>₹{{ pay.amount }}</td>
+            <td>{{ pay.reason }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p class="total">மொத்த செலுத்திய தொகை: ₹{{ total_amount }}</p>
+
+<div class="footer">
+    <div class="seal">
+        {% if seal_url %}
+        <img src="{{ seal_url }}">
+        {% endif %}
+    </div>
+    <div class="signature">
+        {% if sign_url %}
+        <img src="{{ sign_url }}">
+        <span>Leader Signature</span>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends 'base1.html' %}
+{% block content %}
+
+<div style="max-width:600px; margin:40px auto; background:white; padding:25px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+    <h2 style="color:red; text-align:center;">Add Important Notice</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label style="font-weight:bold;">Notice Text</label>
+        <textarea name="message" class="form-control" required rows="4" style="margin-top:10px;"></textarea>
+
+        <button class="btn btn-danger" style="margin-top:20px; width:100%;">Save Notice</button>
+    </form>
+</div>
+
+{% endblock %}
