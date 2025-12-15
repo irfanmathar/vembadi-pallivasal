@@ -157,11 +157,19 @@ def delete_payment(request, payment_id):
 
     return redirect('view_payments', member_id=payment.member.id)
     
-from twilio.rest import Client
+try:
+    from twilio.rest import Client
+except ImportError:
+    Client = None
+
 def send_whatsapp_payment(member, pdf_url, message):
     account_sid = 'YOUR_TWILIO_SID'
     auth_token = 'YOUR_TWILIO_AUTH_TOKEN'
+    if Client is None:
+     raise Exception("Twilio not installed")
+
     client = Client(account_sid, auth_token)
+
 
     whatsapp_number = f'whatsapp:+91{member.phone_number}'
     from_whatsapp = 'whatsapp:+14155238886'  # Twilio sandbox number
