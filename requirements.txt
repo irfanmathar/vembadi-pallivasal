@@ -7,6 +7,7 @@ requests==2.32.5
 pillow==12.0.0
 qrcode==8.2
 reportlab==4.4.5
+twilio==9.8.8
 weasyprint==67.0
 django-bootstrap5==23.1
 asgiref==3.11.0
@@ -26,5 +27,6 @@ brotli==1.2.0
 zopfli==0.4.0
 cffi==2.0.0
 pycparser==2.23
+
 
 
