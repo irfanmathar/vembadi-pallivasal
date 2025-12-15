@@ -24,13 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-cwu@v!fpjf018v(#mbm5@^f#q9dwh&(^ro0r3=nd&c!4m!%@p!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = [
     "https://vembadi-pallivasal-1.onrender.com",
 ]
-
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "vembadi-pallivasal-1.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition
